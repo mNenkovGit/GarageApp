@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using GarageApp.Data.Enums;
+using GarageApp.Data.Models.Enums;
 
 namespace GarageApp.Data.Models
 {

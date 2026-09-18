@@ -1,16 +1,13 @@
 using System.Diagnostics;
-using GarageApp.Models;
+using GarageApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GarageApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController()
         {
-            _logger = logger;
         }
 
         public IActionResult Index()

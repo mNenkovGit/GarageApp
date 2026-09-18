@@ -1,4 +1,5 @@
 ﻿using GarageApp.Data.Models;
+using GarageApp.Data.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -22,7 +23,7 @@ namespace GarageApp.Data.Configurations
                         Make = "Audi",
                         Model = "A4",
                         Year = 2016,
-                        Type = Enums.VehicleType.Sedan,
+                        Type = VehicleType.Sedan,
                         IsAvailable = true,
                         GarageId = 1
                     },
@@ -32,7 +33,7 @@ namespace GarageApp.Data.Configurations
                         Make = "BMW",
                         Model = "X5",
                         Year = 2018,
-                        Type = Enums.VehicleType.SUV,
+                        Type = VehicleType.SUV,
                         IsAvailable = true,
                         GarageId = 1
                     },
@@ -42,8 +43,18 @@ namespace GarageApp.Data.Configurations
                         Make = "VW",
                         Model = "Golf",
                         Year = 2014,
-                        Type = Enums.VehicleType.Hatchback,
+                        Type = VehicleType.Hatchback,
                         IsAvailable = false,
+                        GarageId = 2
+                    },
+                    new Car
+                    {
+                        Id = 4,
+                        Make = "Toyota",
+                        Model = "Corolla Verso",
+                        Year = 2017,
+                        Type = VehicleType.Van,
+                        IsAvailable = true,
                         GarageId = 2
                     }
                     );
