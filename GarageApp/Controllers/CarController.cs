@@ -13,18 +13,31 @@ namespace GarageApp.Controllers
             _dbContext = dbContext;
         }
 
-        public IActionResult Index()
+        /*optional add attributes to specify the request*/
+
+        [HttpGet]
+        public IActionResult Index(string? make)
         {
-            var cars = _dbContext.Cars
+            var query = _dbContext.Cars
                   .Include(c => c.Garage)
                   .OrderBy(c => c.Make)
                   .ThenBy(c => c.Model)
                   .ThenByDescending(c => c.Year)
+                  .Take(25);
+
+            if (!string.IsNullOrEmpty(make))
+            {
+                query = query
+                    .Where(c => c.Make.ToString().ToLower().Contains(make.ToLower()));
+            }
+            
+              var cars = query
                   .ToList();
 
             return View(cars);
         }
 
+        [HttpGet]
         public IActionResult Details (int id)
         {
             var car = _dbContext.Cars
@@ -37,40 +50,5 @@ namespace GarageApp.Controllers
             }
             return View(car);
         }
-
-        public IActionResult Search (string make)
-        {
-            make = (make ?? string.Empty).Trim();
-
-
-            var query = _dbContext.Cars.AsNoTracking();
-
-            if (!string.IsNullOrWhiteSpace(make))
-            {
-                query = query.Where(c => c.Make.Contains(make));
-            }
-            
-            var cars = query
-                .OrderBy(c => c.Make)
-                .ThenBy (c => c.Model)
-                .ToArray();
-
-            return View("Index", cars);
-        }
-
-        //public IActionResult Search (string make)
-        //{
-        //    var cars = _dbContext.Cars
-        //        .AsNoTracking()
-        //        .Include(c => c.Garage)
-        //        .Where(c => c.Make == make)
-        //        .ToList();
-
-        //    if (cars.Count == 0)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(cars);
-        //}
     }
 }

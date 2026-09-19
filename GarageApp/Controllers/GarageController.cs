@@ -14,24 +14,33 @@ namespace GarageApp.Controllers
             _dbContext = dbContext;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             ICollection<Garage> garages = _dbContext.Garages
                 .Include(g => g.Cars)
                 .OrderBy(g => g.Name)
+                .ThenBy(g => g.Location)
+                .Take(25)
                 .ToList();
             return View(garages);
         }
 
+        [HttpGet]
         public IActionResult Details(int id)
         {
+            if(id <= 0)
+            {
+                return BadRequest("Id must be positive number!");
+            }
+
             var garage = _dbContext.Garages
                          .Include(g => g.Cars)
-                         .FirstOrDefault(g => g.Id == id);
+                         .SingleOrDefault(g => g.Id == id);
 
             if (garage == null)
             {
-                return NotFound();
+                return NotFound("The garage was not found. Try again!");
             }
             return View(garage);
         }
